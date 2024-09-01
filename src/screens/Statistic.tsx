@@ -7,7 +7,7 @@ export function Statistic() {
     <View className="h-screen ">
       <View className="w-full h-44 bg-lime-700/40   flex items-center justify-center">
         <TouchableOpacity>
-          <ArrowLeft className="text-gray-600  absolute right-36" size={27} />
+          <ArrowLeft className="  absolute right-36 text-green-700" size={27} />
         </TouchableOpacity>
         <Text className="text-3xl font-bold">90,86%</Text>
         <Text className="text-gray-800 text-sm">

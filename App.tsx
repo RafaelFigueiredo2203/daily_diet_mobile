@@ -1,13 +1,13 @@
 import { StatusBar } from 'expo-status-bar'
 import { View } from 'react-native'
 import './src/global.css'
-import { NewSnack } from './src/screens/NewSnack'
+import { Statistic } from './src/screens/Statistic'
 
 export default function App() {
   return (
     <View>
       <StatusBar style="auto" />
-      <NewSnack />
+      <Statistic />
     </View>
   )
 }

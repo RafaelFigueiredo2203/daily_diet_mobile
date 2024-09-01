@@ -21,8 +21,8 @@ export function NewSnack() {
         className="bg-gray-700/40"
         showsVerticalScrollIndicator={false}
       >
-        <View className="h-max">
-          <View className="p-5 rounded-t-3xl h-screen  bg-gray-200 flex flex-col items-left justify-left">
+        <View>
+          <View className="p-5 rounded-t-3xl h-[1100px]  bg-gray-200 flex flex-col items-left justify-left">
             <Text className="mt-4">Nome</Text>
             <TextInput className="h-12 w-full border border-gray-400  rounded-lg mt-1 focus:border-gray-900 px-2" />
 
