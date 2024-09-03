@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Controller, useForm } from 'react-hook-form'
 import {
+  Modal,
   Platform,
   ScrollView,
   Text,
@@ -118,17 +119,47 @@ export function NewSnack() {
                         <Text>{formatDate(new Date(value))}</Text>
                       </TouchableOpacity>
                       {showDatePicker && (
-                        <DateTimePicker
-                          value={new Date(value)}
-                          mode="date"
-                          display="calendar"
-                          onChange={(event, selectedDate) => {
-                            setShowDatePicker(Platform.OS === 'ios')
-                            if (selectedDate) {
-                              onChange(selectedDate)
-                            }
-                          }}
-                        />
+                        <Modal
+                          transparent={true}
+                          animationType="slide"
+                          visible={showDatePicker}
+                          onRequestClose={() => setShowDatePicker(false)}
+                        >
+                          <View
+                            style={{
+                              flex: 1,
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <View
+                              style={{
+                                backgroundColor: 'white',
+                                borderRadius: 8,
+                                padding: 16,
+                                alignItems: 'center',
+                              }}
+                            >
+                              <DateTimePicker
+                                locale="pt-BR"
+                                value={new Date(value)}
+                                mode="date"
+                                display="calendar"
+                                onChange={(event, selectedDate) => {
+                                  setShowDatePicker(Platform.OS === 'ios')
+                                  if (selectedDate) {
+                                    onChange(selectedDate)
+                                  }
+                                }}
+                              />
+                              <TouchableOpacity
+                                onPress={() => setShowDatePicker(false)}
+                              >
+                                <Text>Fechar</Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </Modal>
                       )}
                     </View>
                   )}
@@ -151,6 +182,7 @@ export function NewSnack() {
                       </TouchableOpacity>
                       {showTimePicker && (
                         <DateTimePicker
+                          locale="pt-BR"
                           value={new Date(value)}
                           mode="time"
                           display="default"
