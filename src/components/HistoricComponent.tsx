@@ -1,23 +1,27 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
+import { RootStackParamList } from '../routes/app.routes'
 import { SnackProps } from '../utils/context/snackContext'
 import { useSnackContext } from '../utils/context/useSnackContext'
+import { formatDate } from '../utils/formmatDate'
 import { formatHour } from '../utils/formmatHour'
 
 interface GroupedSnacks {
   [date: string]: SnackProps[]
 }
 
+type NavigationProp = StackNavigationProp<RootStackParamList>
+
 export function HistoricComponent() {
-  const { snacks } = useSnackContext()
+  const { snacks, getSnacks } = useSnackContext()
   const navigation = useNavigation<NavigationProp>()
 
   useEffect(() => {
-    AsyncStorage.setItem('snacks', JSON.stringify(snacks))
+    getSnacks()
     console.log(snacks)
-  }, [snacks])
+  }, [])
 
   const groupSnacksByDate = (
     snacks: SnackProps[],
@@ -50,9 +54,16 @@ export function HistoricComponent() {
   const renderGroupedSnacks = (groupedSnacks: {
     [date: string]: SnackProps[]
   }) => {
-    return Object.keys(groupedSnacks).map((date) => (
+    // Ordena as datas de forma decrescente
+    const sortedDates = Object.keys(groupedSnacks).sort(
+      (a, b) => new Date(b).getTime() - new Date(a).getTime(),
+    )
+
+    return sortedDates.map((date) => (
       <View className="mt-8" key={date}>
-        <Text className="text-gray-800 text-lg font-bold">{date}</Text>
+        <Text className="text-gray-800 text-lg font-bold">
+          {formatDate(new Date(date))}
+        </Text>
         {groupedSnacks[date].map((snack) => (
           <View
             className="w-full flex flex-col items-center justify-center"
@@ -60,7 +71,7 @@ export function HistoricComponent() {
           >
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('edit_snack', { id: snack.id })
+                navigation.navigate('snack_details', { id: snack.id })
               }}
               className="w-full my-1 p-4 h-12 border border-gray-400 rounded-md flex flex-row items-center justify-left"
             >
@@ -78,7 +89,6 @@ export function HistoricComponent() {
       </View>
     ))
   }
-
   const groupedSnacks = groupSnacksByDate(snacks)
 
   return <>{renderGroupedSnacks(groupedSnacks)}</>

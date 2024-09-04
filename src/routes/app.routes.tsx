@@ -1,9 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { EditSnack } from '../screens/EditSnack/EditSnack'
+import { SnackDetails } from '../screens/EditSnack/SnackDetails'
 import { Home } from '../screens/Home'
+import { DietFailure } from '../screens/NewSnack/DietFailure'
 import { DietSuccess } from '../screens/NewSnack/DietSuccess'
 import { NewSnack } from '../screens/NewSnack/NewSnack'
-import { DietFailure } from '../screens/NewSnack/DietFailure'
+import { Statistic } from '../screens/Statistic'
 
 export type RootStackParamList = {
   home: undefined
@@ -11,6 +13,8 @@ export type RootStackParamList = {
   new_snack: undefined
   success: undefined
   failure: undefined
+  snack_details: undefined
+  statistic: undefined
 }
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>()
@@ -23,6 +27,8 @@ export function AppRoutes() {
       <Screen name="new_snack" component={NewSnack} />
       <Screen name="success" component={DietSuccess} />
       <Screen name="failure" component={DietFailure} />
+      <Screen name="snack_details" component={SnackDetails} />
+      <Screen name="statistic" component={Statistic} />
     </Navigator>
   )
 }

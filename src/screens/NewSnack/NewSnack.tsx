@@ -68,9 +68,9 @@ export function NewSnack() {
             navigation.navigate('home')
           }}
         >
-          <ArrowLeft className="text-gray-600  " size={27} />
+          <ArrowLeft className="text-gray-600  " size={32} />
         </TouchableOpacity>
-        <Text className="text-xl font-bold w-full flex items-center text-center pr-4 justify-center">
+        <Text className="text-xl font-bold w-full flex items-center text-center pr-5 justify-center">
           Nova Refeição
         </Text>
       </View>
