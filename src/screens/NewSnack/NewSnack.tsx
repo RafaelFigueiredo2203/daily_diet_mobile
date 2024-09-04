@@ -1,7 +1,10 @@
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { ArrowLeft } from 'lucide-react-native'
 import React, { useState } from 'react'
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid'
 
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Controller, useForm } from 'react-hook-form'
@@ -15,21 +18,15 @@ import {
   View,
 } from 'react-native'
 import { RootStackParamList } from '../../routes/app.routes'
+import { SnackProps } from '../../utils/context/snackContext'
+import { useSnackContext } from '../../utils/context/useSnackContext'
 import { formatDate } from '../../utils/formmatDate'
 import { formatHour } from '../../utils/formmatHour'
-
-interface SnakProps {
-  id: string
-  name: string
-  description: string
-  date: string // yyyy-mm-dd
-  time: string // hh:mm
-  isWithinDiet: boolean
-}
 
 type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function NewSnack() {
+  const { setSnacks, snacks, getSnacks } = useSnackContext()
   const navigation = useNavigation<NavigationProp>()
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
@@ -38,9 +35,24 @@ export function NewSnack() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<SnakProps>()
-  const onSubmit = (data: SnakProps) => {
-    console.log(data)
+  } = useForm<SnackProps>()
+  const onSubmit = async (data: SnackProps) => {
+    const newSnack = {
+      ...data,
+      isDiet,
+      id: uuidv4(),
+    }
+
+    const updatedSnacks = [...snacks, newSnack]
+
+    try {
+      await AsyncStorage.setItem('snacks', JSON.stringify(updatedSnacks))
+      setSnacks(updatedSnacks)
+      console.log('Dados salvos com sucesso!', newSnack)
+    } catch (error) {
+      console.error('Erro ao salvar os dados:', error)
+    }
+
     if (isDiet === true) {
       navigation.navigate('success')
     } else {
@@ -51,7 +63,11 @@ export function NewSnack() {
   return (
     <View>
       <View className="w-full h-32 bg-gray-700/40  flex flex-row items-center text-left justify-center px-6">
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('home')
+          }}
+        >
           <ArrowLeft className="text-gray-600  " size={27} />
         </TouchableOpacity>
         <Text className="text-xl font-bold w-full flex items-center text-center pr-4 justify-center">
@@ -68,7 +84,7 @@ export function NewSnack() {
             <Controller
               control={control}
               name="name"
-              rules={{ required: 'Name is required' }}
+              rules={{ required: 'Nome é obrigatório!' }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onBlur={onBlur}
@@ -86,7 +102,7 @@ export function NewSnack() {
             <Controller
               control={control}
               name="description"
-              rules={{ required: 'Description is required' }}
+              rules={{ required: 'Descrição é obrigatório!' }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   onBlur={onBlur}
@@ -121,41 +137,57 @@ export function NewSnack() {
                       {showDatePicker && (
                         <Modal
                           transparent={true}
-                          animationType="slide"
+                          animationType="fade"
                           visible={showDatePicker}
                           onRequestClose={() => setShowDatePicker(false)}
                         >
-                          <View
-                            style={{
-                              flex: 1,
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}
-                          >
+                          <View className="flex flex-1 items-center justify-center bg-gray-900/40">
                             <View
                               style={{
                                 backgroundColor: 'white',
                                 borderRadius: 8,
+                                borderWidth: '2px',
+                                borderColor: '#777777',
+                                shadowOffset: { width: 0, height: 2 },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5,
                                 padding: 16,
                                 alignItems: 'center',
                               }}
                             >
-                              <DateTimePicker
-                                locale="pt-BR"
-                                value={new Date(value)}
-                                mode="date"
-                                display="calendar"
-                                onChange={(event, selectedDate) => {
-                                  setShowDatePicker(Platform.OS === 'ios')
-                                  if (selectedDate) {
-                                    onChange(selectedDate)
-                                  }
+                              <View
+                                style={{
+                                  borderRadius: 8,
+                                  overflow: 'hidden', // Isso garante que o conteúdo respeite a borda arredondada
+                                  backgroundColor: '#777676',
                                 }}
-                              />
+                              >
+                                <DateTimePicker
+                                  locale="pt-BR"
+                                  style={{
+                                    backgroundColor: '#777676',
+                                    width: '100%',
+                                  }}
+                                  value={new Date(value)}
+                                  mode="date"
+                                  display="calendar"
+                                  onChange={(event, selectedDate) => {
+                                    setShowDatePicker(Platform.OS === 'ios')
+                                    if (selectedDate) {
+                                      onChange(selectedDate)
+                                    }
+                                  }}
+                                />
+                              </View>
+
                               <TouchableOpacity
                                 onPress={() => setShowDatePicker(false)}
+                                className=" mt-4 w-32 h-12 bg-gray-800 rounded-lg flex flex-row items-center justify-center"
                               >
-                                <Text>Fechar</Text>
+                                <Text className="text-gray-200 text-base">
+                                  Confirmar
+                                </Text>
                               </TouchableOpacity>
                             </View>
                           </View>
@@ -180,19 +212,62 @@ export function NewSnack() {
                       >
                         <Text>{formatHour(new Date(value))}</Text>
                       </TouchableOpacity>
+
                       {showTimePicker && (
-                        <DateTimePicker
-                          locale="pt-BR"
-                          value={new Date(value)}
-                          mode="time"
-                          display="default"
-                          onChange={(event, selectedTime) => {
-                            setShowTimePicker(Platform.OS === 'ios')
-                            if (selectedTime) {
-                              onChange(selectedTime)
-                            }
-                          }}
-                        />
+                        <Modal
+                          transparent={true}
+                          animationType="fade"
+                          visible={showTimePicker}
+                          onRequestClose={() => setShowTimePicker(false)}
+                        >
+                          <View className="flex flex-1 items-center justify-center bg-gray-900/40">
+                            <View
+                              style={{
+                                backgroundColor: 'white',
+                                borderRadius: 8,
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                // Isso garante que o conteúdo respeite a borda arredondada
+                                borderWidth: '2px',
+                                borderColor: '#777777',
+                                shadowOffset: { width: 0, height: 2 },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5,
+                                padding: 16,
+                              }}
+                            >
+                              <View className=" flex items-center justify-center pr-4 rounded-lg overflow-hidden bg-[#777676]">
+                                <DateTimePicker
+                                  locale="pt-BR"
+                                  style={{
+                                    backgroundColor: '#777676',
+                                    width: '100%',
+                                  }}
+                                  value={new Date(value)}
+                                  mode="time"
+                                  display="default"
+                                  onChange={(event, selectedTime) => {
+                                    setShowTimePicker(Platform.OS === 'ios')
+                                    if (selectedTime) {
+                                      onChange(selectedTime)
+                                    }
+                                  }}
+                                />
+                              </View>
+
+                              <TouchableOpacity
+                                onPress={() => setShowTimePicker(false)}
+                                className=" mt-4 w-32 h-12 bg-gray-800 rounded-lg flex flex-row items-center justify-center"
+                              >
+                                <Text className="text-gray-200 text-base">
+                                  Confirmar
+                                </Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </Modal>
                       )}
                     </View>
                   )}

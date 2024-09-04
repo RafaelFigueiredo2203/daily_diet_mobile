@@ -39,7 +39,6 @@ export function Home() {
           </TouchableOpacity>
 
           <HistoricComponent />
-          <HistoricComponent />
         </View>
       </ScrollView>
     </View>

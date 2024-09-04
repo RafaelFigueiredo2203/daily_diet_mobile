@@ -1,3 +1,4 @@
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { ArrowLeft } from 'lucide-react-native'
 import React from 'react'
 import {
@@ -7,8 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import { RootStackParamList } from '../../routes/app.routes'
+
+type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'edit_snack'>
 
 export function EditSnack() {
+  const route = useRoute<DetailsScreenRouteProp>()
+
+  const { id } = route.params
+  console.log(id)
+
   return (
     <View>
       <View className="w-full h-32 bg-gray-700/40   flex items-center justify-center">
