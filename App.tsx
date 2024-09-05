@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
+import Toast from 'react-native-toast-message'
 import './src/global.css'
 import { Routes } from './src/routes'
 import { SnackProvider } from './src/utils/context/snackContext'
@@ -9,6 +10,7 @@ export default function App() {
       <StatusBar style="auto" />
       <SnackProvider>
         <Routes />
+        <Toast />
       </SnackProvider>
     </>
   )

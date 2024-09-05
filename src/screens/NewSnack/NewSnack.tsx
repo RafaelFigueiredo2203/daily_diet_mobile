@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import Toast from 'react-native-toast-message'
 import { RootStackParamList } from '../../routes/app.routes'
 import { SnackProps } from '../../utils/context/snackContext'
 import { useSnackContext } from '../../utils/context/useSnackContext'
@@ -31,6 +32,13 @@ export function NewSnack() {
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
   const [isDiet, setIsDiet] = useState(true)
+  const showToast = () => {
+    Toast.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Refeição criada! ✅',
+    })
+  }
   const {
     control,
     handleSubmit,
@@ -48,6 +56,7 @@ export function NewSnack() {
     try {
       await AsyncStorage.setItem('snacks', JSON.stringify(updatedSnacks))
       setSnacks(updatedSnacks)
+      showToast()
       console.log('Dados salvos com sucesso!', newSnack)
     } catch (error) {
       console.error('Erro ao salvar os dados:', error)

@@ -75,7 +75,7 @@ export function HistoricComponent() {
               }}
               className="w-full my-1 p-4 h-12 border border-gray-400 rounded-md flex flex-row items-center justify-left"
             >
-              <Text>{formatHour(new Date(snack.time))}</Text>
+              <Text className=" h-4">{formatHour(new Date(snack.time))}</Text>
               <View className="h-4 ml-2 mr-2 bg-slate-400 w-[1px]" />
               <View className="flex flex-row w-full items-center justify-left">
                 <Text className="w-[240px] h-4">{snack.name}</Text>

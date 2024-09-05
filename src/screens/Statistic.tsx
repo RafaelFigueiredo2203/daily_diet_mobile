@@ -27,7 +27,7 @@ export function Statistic() {
   return (
     <View className="h-screen ">
       <View
-        className={` ${dietPercentage >= 40 ? 'bg-lime-700/40' : 'bg-red-700/40'} w-full h-44    flex items-center justify-center`}
+        className={` ${dietPercentage >= 40 ? 'bg-lime-700/40' : 'bg-red-700/40'} w-full h-44  px-6  flex flex-row items-center justify-center`}
       >
         <TouchableOpacity
           onPress={() => {
@@ -35,14 +35,18 @@ export function Statistic() {
           }}
         >
           <ArrowLeft
-            className={`${dietPercentage >= 40 ? 'text-green-700' : 'text-red-700'}  absolute right-36 `}
+            className={`${dietPercentage >= 40 ? 'text-green-700' : 'text-red-700'}    `}
             size={32}
           />
         </TouchableOpacity>
-        <Text className="text-3xl font-bold">{dietPercentage}%</Text>
-        <Text className="text-gray-800 text-sm">
-          das refeições dentro da dieta
-        </Text>
+        <View className="flex items-center justify-center w-full pr-5">
+          <Text className="text-3xl font-bold">
+            {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
+          </Text>
+          <Text className="text-gray-800 text-sm">
+            das refeições dentro da dieta
+          </Text>
+        </View>
       </View>
 
       <View className=" bg-lime-700/40">

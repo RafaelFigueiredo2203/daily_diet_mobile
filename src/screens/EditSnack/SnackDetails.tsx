@@ -3,7 +3,8 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ArrowLeft, Pencil, Trash } from 'lucide-react-native'
 import React, { useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import Toast from 'react-native-toast-message'
 import { RootStackParamList } from '../../routes/app.routes'
 import { SnackProps } from '../../utils/context/snackContext'
 import { useSnackContext } from '../../utils/context/useSnackContext'
@@ -16,9 +17,17 @@ interface RouteParams {
 type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function SnackDetails() {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const { setSnacks } = useSnackContext()
   const navigation = useNavigation<NavigationProp>()
+  const showToast = () => {
+    Toast.show({
+      type: 'info',
+      text1: 'Sucesso',
 
+      text2: 'Refeição excluída! 📍',
+    })
+  }
   const [snackDetails, setSnackDetails] = useState<SnackProps | undefined>(
     undefined,
   )
@@ -34,19 +43,24 @@ export function SnackDetails() {
     console.log(snackDetails)
   }, [id, snackDetails])
 
-  async function handlesnackRemove(id: number) {
-    const snackIndex = snacks.findIndex((snack) => Number(snack.id) === id)
-
+  async function handleSnackRemove(id: string) {
+    const snackIndex = snacks.findIndex((snack) => snack.id === id)
+    console.log(snackIndex)
     if (snackIndex !== -1) {
-      const filtersnacks = [...snacks]
-      filtersnacks.splice(snackIndex, 1)
+      const updatedSnacks = [...snacks]
+      updatedSnacks.splice(snackIndex, 1)
 
-      setSnacks(filtersnacks)
+      setSnacks(updatedSnacks)
 
-      await AsyncStorage.setItem('snacks', JSON.stringify(filtersnacks))
+      try {
+        await AsyncStorage.setItem('snacks', JSON.stringify(updatedSnacks))
+        showToast()
+        navigation.navigate('home') // Navega apenas após sucesso
+      } catch (error) {
+        console.error('Erro ao salvar os snacks:', error)
+      }
     }
   }
-
   if (!snackDetails) {
     return
   }
@@ -56,7 +70,7 @@ export function SnackDetails() {
       className={` ${snackDetails?.isDiet ? 'bg-lime-700/40' : 'bg-red-700/40'} `}
     >
       <View className="w-full h-32    flex items-center justify-center">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeft className="text-gray-600  absolute right-36" size={32} />
         </TouchableOpacity>
         <Text className="text-xl font-bold">Refeição</Text>
@@ -95,14 +109,44 @@ export function SnackDetails() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={() => {
-            handlesnackRemove(Number(snackDetails.id))
-          }}
+          onPress={() => setIsDeleteModalOpen(true)}
           className=" mb-32 w-full h-14 border bg-transparent border-gray-800 rounded-lg  flex flex-row items-center justify-center"
         >
           <Trash size={18} color="black" />
           <Text className="ml-4 text-gray-900 text-base">Excluir Refeição</Text>
         </TouchableOpacity>
+        {isDeleteModalOpen && (
+          <Modal
+            transparent={true}
+            animationType="fade"
+            onRequestClose={() => setIsDeleteModalOpen(false)}
+          >
+            <View className="flex-1 items-center justify-center bg-slate-900/50">
+              <View className="bg-slate-200 w-80 py-5 rounded-lg px-4 flex items-center justify-center flex-col">
+                <Text className="text-lg font-bold text-gray-800 text-center">
+                  Deseja realmente excluir o registro da refeição?
+                </Text>
+                <View className="flex flex-row items-center justify-center mt-8">
+                  <TouchableOpacity
+                    onPress={() => setIsDeleteModalOpen(false)}
+                    className=" w-32 mr-4 h-12 border bg-transparent border-gray-800 rounded-lg  flex flex-row items-center justify-center"
+                  >
+                    <Text className=" text-gray-900 text-base">Cancelar</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => handleSnackRemove(snackDetails.id)}
+                    className="  w-32 h-12 bg-gray-800 rounded-lg  flex flex-row items-center justify-center"
+                  >
+                    <Text className=" text-gray-200 text-base">
+                      Sim, excluir
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        )}
       </View>
     </View>
   )

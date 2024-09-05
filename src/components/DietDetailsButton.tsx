@@ -11,7 +11,8 @@ export function DietDetailsButton() {
   const navigation = useNavigation<NavigationProp>()
 
   const { dietPercentage } = useSnackContext()
-  console.log(dietPercentage)
+
+  console.log(dietPercentage.valueOf())
 
   return (
     <>
@@ -23,7 +24,7 @@ export function DietDetailsButton() {
           className="w-full h-44 bg-lime-700/40 rounded-lg mt-8 flex items-center justify-center"
         >
           <Text className="text-3xl font-bold">
-            {parseFloat(dietPercentage.toFixed(2))}%
+            {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
           </Text>
           <Text className="text-gray-800 text-sm">
             das refeições dentro da dieta
@@ -38,7 +39,7 @@ export function DietDetailsButton() {
           className="w-full h-44 bg-red-700/40 rounded-lg mt-8 flex items-center justify-center"
         >
           <Text className="text-3xl font-bold">
-            {parseFloat(dietPercentage.toFixed(2))}%
+            {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
           </Text>
           <Text className="text-gray-800 text-sm">
             das refeições dentro da dieta
