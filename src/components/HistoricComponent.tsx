@@ -1,4 +1,4 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
@@ -61,7 +61,10 @@ export function HistoricComponent() {
 
     return sortedDates.map((date) => (
       <View className="mt-8" key={date}>
-        <Text className="text-gray-800 text-lg font-bold">
+        <Text
+          style={{ fontFamily: 'NunitoSans_700Bold' }}
+          className="text-gray-800 text-lg "
+        >
           {formatDate(new Date(date))}
         </Text>
         {groupedSnacks[date].map((snack) => (
@@ -75,10 +78,20 @@ export function HistoricComponent() {
               }}
               className="w-full my-1 p-4 h-12 border border-gray-400 rounded-md flex flex-row items-center justify-left"
             >
-              <Text className=" h-4">{formatHour(new Date(snack.time))}</Text>
+              <Text
+                style={{ fontFamily: 'NunitoSans_400Regular' }}
+                className=" h-4"
+              >
+                {formatHour(new Date(snack.time))}
+              </Text>
               <View className="h-4 ml-2 mr-2 bg-slate-400 w-[1px]" />
               <View className="flex flex-row w-full items-center justify-left">
-                <Text className="w-[240px] h-4">{snack.name}</Text>
+                <Text
+                  style={{ fontFamily: 'NunitoSans_400Regular' }}
+                  className="w-[240px] h-4"
+                >
+                  {snack.name}
+                </Text>
                 <View
                   className={`w-4 h-4 ${snack.isDiet ? 'bg-green-400' : 'bg-red-400'} rounded-full`}
                 />

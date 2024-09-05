@@ -27,7 +27,7 @@ import { formatHour } from '../../utils/formmatHour'
 type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function NewSnack() {
-  const { setSnacks, snacks, getSnacks } = useSnackContext()
+  const { setSnacks, snacks } = useSnackContext()
   const navigation = useNavigation<NavigationProp>()
   const [showDatePicker, setShowDatePicker] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
@@ -79,7 +79,10 @@ export function NewSnack() {
         >
           <ArrowLeft className="text-gray-600  " size={32} />
         </TouchableOpacity>
-        <Text className="text-xl font-bold w-full flex items-center text-center pr-5 justify-center">
+        <Text
+          style={{ fontFamily: 'NunitoSans_700Bold' }}
+          className="text-xl  w-full flex items-center text-center pr-5 justify-center"
+        >
           Nova Refeição
         </Text>
       </View>
@@ -89,13 +92,19 @@ export function NewSnack() {
       >
         <View>
           <View className="p-5 rounded-t-3xl h-[1100px]  bg-gray-200 flex flex-col items-left justify-left">
-            <Text className="mt-4">Nome</Text>
+            <Text
+              style={{ fontFamily: 'NunitoSans_400Regular' }}
+              className="mt-4"
+            >
+              Nome
+            </Text>
             <Controller
               control={control}
               name="name"
               rules={{ required: 'Nome é obrigatório!' }}
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
+                  style={{ fontFamily: 'NunitoSans_400Regular' }}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
@@ -107,7 +116,12 @@ export function NewSnack() {
               <Text style={{ color: 'red' }}>{errors.name.message}</Text>
             )}
 
-            <Text className="mt-4">Descrição</Text>
+            <Text
+              style={{ fontFamily: 'NunitoSans_400Regular' }}
+              className="mt-4"
+            >
+              Descrição
+            </Text>
             <Controller
               control={control}
               name="description"
@@ -118,7 +132,10 @@ export function NewSnack() {
                   onChangeText={onChange}
                   value={value}
                   multiline={true}
-                  style={{ textAlignVertical: 'top' }}
+                  style={{
+                    textAlignVertical: 'top',
+                    fontFamily: 'NunitoSans_400Regular',
+                  }}
                   numberOfLines={4}
                   className="h-28 w-full border pt-1   border-gray-400  rounded-lg mt-1 focus:border-gray-900 px-2"
                 />
@@ -130,7 +147,12 @@ export function NewSnack() {
 
             <View className="flex flex-row items-center justify-between w-full">
               <View className="flex flex-col items-left justify-left w-[153px] ">
-                <Text className="mt-4">Data</Text>
+                <Text
+                  style={{ fontFamily: 'NunitoSans_400Regular' }}
+                  className="mt-4"
+                >
+                  Data
+                </Text>
                 <Controller
                   control={control}
                   name="date"
@@ -141,7 +163,9 @@ export function NewSnack() {
                         className="h-12 w-full border border-gray-400 flex items-center justify-center rounded-lg mt-1 focus:border-gray-900 px-2"
                         onPress={() => setShowDatePicker(true)}
                       >
-                        <Text>{formatDate(new Date(value))}</Text>
+                        <Text style={{ fontFamily: 'NunitoSans_400Regular' }}>
+                          {formatDate(new Date(value))}
+                        </Text>
                       </TouchableOpacity>
                       {showDatePicker && (
                         <Modal
@@ -208,7 +232,12 @@ export function NewSnack() {
               </View>
 
               <View className="flex flex-col items-left justify-left w-[153px]">
-                <Text className="mt-4">Hora</Text>
+                <Text
+                  style={{ fontFamily: 'NunitoSans_400Regular' }}
+                  className="mt-4"
+                >
+                  Hora
+                </Text>
                 <Controller
                   control={control}
                   name="time"
@@ -219,7 +248,9 @@ export function NewSnack() {
                         className="h-12 w-full border flex items-center justify-center border-gray-400  rounded-lg mt-1 focus:border-gray-900 px-2"
                         onPress={() => setShowTimePicker(true)}
                       >
-                        <Text>{formatHour(new Date(value))}</Text>
+                        <Text style={{ fontFamily: 'NunitoSans_400Regular' }}>
+                          {formatHour(new Date(value))}
+                        </Text>
                       </TouchableOpacity>
 
                       {showTimePicker && (
@@ -284,7 +315,12 @@ export function NewSnack() {
               </View>
             </View>
 
-            <Text className="mt-4">Esta dentro da dieta?</Text>
+            <Text
+              style={{ fontFamily: 'NunitoSans_400Regular' }}
+              className="mt-4"
+            >
+              Esta dentro da dieta?
+            </Text>
             <View className="flex flex-row items-center  mb-40 justify-between w-full mt-1 mb-">
               {isDiet === true ? (
                 <TouchableOpacity

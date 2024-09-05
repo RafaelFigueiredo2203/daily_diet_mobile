@@ -24,13 +24,23 @@ export function Home() {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="mt-10 mb-4">
-          <Text className="text-gray-800 text-lg">Refeições</Text>
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-lg"
+          >
+            Refeições
+          </Text>
           <TouchableOpacity
             onPress={handleNavigateToNewSnack}
             className="w-full h-14 bg-gray-800 rounded-lg flex flex-row items-center justify-center"
           >
             <Plus color="white" className="mr-2" />
-            <Text className="text-gray-200 text-base">Nova Refeição</Text>
+            <Text
+              style={{ fontFamily: 'Inter_400Regular' }}
+              className="text-gray-200 text-base"
+            >
+              Nova Refeição
+            </Text>
           </TouchableOpacity>
 
           <HistoricComponent />

@@ -11,12 +11,19 @@ export function DietSuccess() {
 
   return (
     <View className="flex flex-col items-center justify-center bg-gray-100 h-screen">
-      <Text className="text-green-700 text-2xl font-bold mb-3">
+      <Text
+        style={{ fontFamily: 'NunitoSans_700Bold' }}
+        className="text-green-700 text-2xl  mb-3"
+      >
         Continue assim !
       </Text>
-      <Text>
-        Você continua <Text className="font-bold"> dentro da dieta.</Text> Muito
-        bem!
+      <Text style={{ fontFamily: 'NunitoSans_400Regular' }}>
+        Você continua{' '}
+        <Text style={{ fontFamily: 'NunitoSans_700Bold' }}>
+          {' '}
+          dentro da dieta.
+        </Text>{' '}
+        Muito bem!
       </Text>
 
       <Image
@@ -31,7 +38,10 @@ export function DietSuccess() {
         }}
         className="mt-10  w-52 h-14 bg-gray-800 rounded-lg flex flex-row items-center justify-center"
       >
-        <Text className="text-gray-200 text-base">
+        <Text
+          style={{ fontFamily: 'NunitoSans_400Regular' }}
+          className="text-gray-200 text-base"
+        >
           Ir para a página inicial
         </Text>
       </TouchableOpacity>

@@ -40,10 +40,16 @@ export function Statistic() {
           />
         </TouchableOpacity>
         <View className="flex items-center justify-center w-full pr-5">
-          <Text className="text-3xl font-bold">
+          <Text
+            style={{ fontFamily: 'NunitoSans_700Bold' }}
+            className="text-3xl "
+          >
             {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
           </Text>
-          <Text className="text-gray-800 text-sm">
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-sm"
+          >
             das refeições dentro da dieta
           </Text>
         </View>
@@ -51,32 +57,58 @@ export function Statistic() {
 
       <View className=" bg-lime-700/40">
         <View className="p-5 rounded-t-3xl h-screen  bg-gray-200 flex flex-col items-center">
-          <Text className="text-gray-800 text-base font-bold">
+          <Text
+            style={{ fontFamily: 'NunitoSans_700Bold' }}
+            className="text-gray-800 text-base "
+          >
             Estatísticas gerais
           </Text>
 
           <View className="w-full h-24 bg-lime-700/20   flex items-center justify-center mt-8 rounded-lg">
-            <Text className="text-3xl font-bold">{bestSequence}</Text>
+            <Text
+              style={{ fontFamily: 'NunitoSans_700Bold' }}
+              className="text-3xl "
+            >
+              {bestSequence}
+            </Text>
             <Text className="text-gray-800 text-sm">
               melhor sequência de pratos dentro da dieta
             </Text>
           </View>
 
           <View className="w-full  h-24 bg-lime-700/20   flex items-center justify-center mt-8 rounded-lg">
-            <Text className="text-3xl font-bold">{snacks.length}</Text>
+            <Text
+              style={{ fontFamily: 'NunitoSans_700Bold' }}
+              className="text-3xl "
+            >
+              {snacks.length}
+            </Text>
             <Text className="text-gray-800 text-sm">refeições registradas</Text>
           </View>
 
           <View className="flex flex-row w-full mt-8  items-center justify-between  ">
             <View className="w-[160px] h-28 flex flex-col items-center justify-center rounded-lg  bg-lime-700/20">
-              <Text className="text-3xl font-bold">{dietCount}</Text>
+              <Text
+                style={{ fontFamily: 'NunitoSans_700Bold' }}
+                className="text-3xl "
+              >
+                {dietCount}
+              </Text>
               <Text className="text-gray-800 text-sm text-center w-[125px]">
                 refeições dentro da dieta
               </Text>
             </View>
             <View className="w-[160px] h-28 flex flex-col items-center justify-center rounded-lg  bg-red-700/20 ">
-              <Text className="text-3xl font-bold">{notDietCount}</Text>
-              <Text className="text-gray-800 text-sm text-center w-[125px]">
+              <Text
+                style={{ fontFamily: 'NunitoSans_700Bold' }}
+                className="text-3xl "
+              >
+                {notDietCount}
+              </Text>
+              <Text
+                style={{ fontFamily: 'NunitoSans_400Regular' }}
+                className="text-gray-800 text-sm text-center w-[125px]"
+              >
                 refeições fora da dieta
               </Text>
             </View>

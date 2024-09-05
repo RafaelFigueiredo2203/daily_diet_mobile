@@ -73,15 +73,35 @@ export function SnackDetails() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <ArrowLeft className="text-gray-600  absolute right-36" size={32} />
         </TouchableOpacity>
-        <Text className="text-xl font-bold">Refeição</Text>
+        <Text style={{ fontFamily: 'NunitoSans_700Bold' }} className="text-xl ">
+          Refeição
+        </Text>
       </View>
 
       <View className="p-5 rounded-t-3xl h-[1100px]  bg-gray-200 flex flex-col items-left justify-left">
-        <Text className="mt-6 font-bold text-xl">{snackDetails?.name}</Text>
-        <Text className="mt-2 text-gray-800">{snackDetails?.description}</Text>
+        <Text
+          style={{ fontFamily: 'NunitoSans_700Bold' }}
+          className="mt-6 text-xl"
+        >
+          {snackDetails?.name}
+        </Text>
+        <Text
+          style={{ fontFamily: 'NunitoSans_400Regular' }}
+          className="mt-2 text-gray-800"
+        >
+          {snackDetails?.description}
+        </Text>
 
-        <Text className="mt-6 font-bold text-base">Data e hora</Text>
-        <Text className="mt-2 text-gray-800">
+        <Text
+          style={{ fontFamily: 'NunitoSans_700Bold' }}
+          className="mt-6 text-base"
+        >
+          Data e hora
+        </Text>
+        <Text
+          style={{ fontFamily: 'NunitoSans_400Regular' }}
+          className="mt-2 text-gray-800"
+        >
           {formatDate(new Date(snackDetails?.date))} às{' '}
           {formatHour(new Date(snackDetails?.time))}
         </Text>
@@ -89,12 +109,16 @@ export function SnackDetails() {
         {snackDetails?.isDiet ? (
           <View className="flex flex-row items-center justify-between w-36 h-9 px-2 bg-gray-300 rounded-xl mt-6">
             <View className="w-2 h-2 bg-green-400 rounded-full" />
-            <Text>dentro da dieta</Text>
+            <Text style={{ fontFamily: 'NunitoSans_400Regular' }}>
+              dentro da dieta
+            </Text>
           </View>
         ) : (
           <View className="flex flex-row items-center justify-between w-36 h-9 px-2 bg-gray-300 rounded-xl mt-6">
             <View className="w-2 h-2 bg-red-400 rounded-full" />
-            <Text>fora da dieta</Text>
+            <Text style={{ fontFamily: 'NunitoSans_400Regular' }}>
+              fora da dieta
+            </Text>
           </View>
         )}
 
@@ -105,7 +129,12 @@ export function SnackDetails() {
           className=" mb-4 mt-64 w-full h-14 bg-gray-800 rounded-lg  flex flex-row items-center justify-center"
         >
           <Pencil size={18} color="white" />
-          <Text className="ml-4 text-gray-200 text-base">Editar Refeição</Text>
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="ml-4 text-gray-200 text-base"
+          >
+            Editar Refeição
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -113,7 +142,12 @@ export function SnackDetails() {
           className=" mb-32 w-full h-14 border bg-transparent border-gray-800 rounded-lg  flex flex-row items-center justify-center"
         >
           <Trash size={18} color="black" />
-          <Text className="ml-4 text-gray-900 text-base">Excluir Refeição</Text>
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="ml-4 text-gray-900 text-base"
+          >
+            Excluir Refeição
+          </Text>
         </TouchableOpacity>
         {isDeleteModalOpen && (
           <Modal
@@ -123,7 +157,10 @@ export function SnackDetails() {
           >
             <View className="flex-1 items-center justify-center bg-slate-900/50">
               <View className="bg-slate-200 w-80 py-5 rounded-lg px-4 flex items-center justify-center flex-col">
-                <Text className="text-lg font-bold text-gray-800 text-center">
+                <Text
+                  style={{ fontFamily: 'NunitoSans_700Bold' }}
+                  className="text-lg  text-gray-800 text-center"
+                >
                   Deseja realmente excluir o registro da refeição?
                 </Text>
                 <View className="flex flex-row items-center justify-center mt-8">
@@ -131,7 +168,12 @@ export function SnackDetails() {
                     onPress={() => setIsDeleteModalOpen(false)}
                     className=" w-32 mr-4 h-12 border bg-transparent border-gray-800 rounded-lg  flex flex-row items-center justify-center"
                   >
-                    <Text className=" text-gray-900 text-base">Cancelar</Text>
+                    <Text
+                      style={{ fontFamily: 'NunitoSans_400Regular' }}
+                      className=" text-gray-900 text-base"
+                    >
+                      Cancelar
+                    </Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity

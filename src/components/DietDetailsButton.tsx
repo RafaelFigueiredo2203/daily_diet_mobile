@@ -23,13 +23,24 @@ export function DietDetailsButton() {
           }}
           className="w-full h-44 bg-lime-700/40 rounded-lg mt-8 flex items-center justify-center"
         >
-          <Text className="text-3xl font-bold">
+          <Text
+            style={{ fontFamily: 'NunitoSans_700Bold' }}
+            className="text-3xl"
+          >
             {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
           </Text>
-          <Text className="text-gray-800 text-sm">
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-sm"
+          >
             das refeições dentro da dieta
           </Text>
-          <Text className="text-gray-800 text-sm">Toque para detalhes</Text>
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-sm"
+          >
+            Toque para detalhes
+          </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
@@ -38,13 +49,24 @@ export function DietDetailsButton() {
           }}
           className="w-full h-44 bg-red-700/40 rounded-lg mt-8 flex items-center justify-center"
         >
-          <Text className="text-3xl font-bold">
+          <Text
+            style={{ fontFamily: 'NunitoSans_700Bold' }}
+            className="text-3xl "
+          >
             {isNaN(dietPercentage) ? 0 : parseFloat(dietPercentage.toFixed(2))}%
           </Text>
-          <Text className="text-gray-800 text-sm">
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-sm"
+          >
             das refeições dentro da dieta
           </Text>
-          <Text className="text-gray-800 text-sm">Toque para detalhes</Text>
+          <Text
+            style={{ fontFamily: 'NunitoSans_400Regular' }}
+            className="text-gray-800 text-sm"
+          >
+            Toque para detalhes
+          </Text>
         </TouchableOpacity>
       )}
     </>
