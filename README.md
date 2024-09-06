@@ -1,12 +1,14 @@
 
 # Daily Diet Mobile
 
+
+O **Daily Diet Mobile** é um aplicativo para controle de refeições diárias, onde o usuário pode registrar suas refeições e verificar se elas estão dentro da dieta ou não. O foco do aplicativo é facilitar o acompanhamento de hábitos alimentares e ajudar o usuário a manter um estilo de vida saudável.
+
 <div align="center">
   <img src="./src/assets/readme/Home.png" alt="Tela de Registro" width="300"/>
   <img src="./src/assets/readme/Statistics.png" alt="Tela de Estatísticas" width="300"/>
 </div>
 
-O **Daily Diet Mobile** é um aplicativo para controle de refeições diárias, onde o usuário pode registrar suas refeições e verificar se elas estão dentro da dieta ou não. O foco do aplicativo é facilitar o acompanhamento de hábitos alimentares e ajudar o usuário a manter um estilo de vida saudável.
 
 ## 📱 Funcionalidades
 
