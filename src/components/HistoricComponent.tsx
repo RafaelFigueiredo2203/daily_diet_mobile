@@ -1,18 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import { RootStackParamList } from '../routes/app.routes'
-import { SnackProps } from '../utils/context/snackContext'
+import { NavigationProp, SnackProps } from '../utils/context/snackContext'
 import { useSnackContext } from '../utils/context/useSnackContext'
 import { formatDate } from '../utils/formmatDate'
 import { formatHour } from '../utils/formmatHour'
-
-interface GroupedSnacks {
-  [date: string]: SnackProps[]
-}
-
-type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function HistoricComponent() {
   const { snacks, getSnacks } = useSnackContext()
@@ -20,7 +12,6 @@ export function HistoricComponent() {
 
   useEffect(() => {
     getSnacks()
-    console.log(snacks)
   }, [])
 
   const groupSnacksByDate = (

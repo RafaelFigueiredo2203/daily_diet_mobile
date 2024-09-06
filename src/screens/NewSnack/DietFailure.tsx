@@ -1,10 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
-import { RootStackParamList } from '../../routes/app.routes'
-
-type NavigationProp = StackNavigationProp<RootStackParamList>
+import { NavigationProp } from '../../utils/context/snackContext'
 
 export function DietFailure() {
   const navigation = useNavigation<NavigationProp>()

@@ -1,18 +1,13 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
 import { Text, TouchableOpacity } from 'react-native'
-import { RootStackParamList } from '../routes/app.routes'
+import { NavigationProp } from '../utils/context/snackContext'
 import { useSnackContext } from '../utils/context/useSnackContext'
-
-type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function DietDetailsButton() {
   const navigation = useNavigation<NavigationProp>()
 
   const { dietPercentage } = useSnackContext()
-
-  console.log(dietPercentage.valueOf())
 
   return (
     <>

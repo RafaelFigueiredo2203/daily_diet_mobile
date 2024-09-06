@@ -1,17 +1,16 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { Plus } from 'lucide-react-native'
+import { Clipboard, Plus } from 'lucide-react-native'
 import React from 'react'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { DietDetailsButton } from '../components/DietDetailsButton'
 import { Header } from '../components/Header'
 import { HistoricComponent } from '../components/HistoricComponent'
-import { RootStackParamList } from '../routes/app.routes'
-
-type NavigationProp = StackNavigationProp<RootStackParamList, 'home'>
+import { NavigationProp } from '../utils/context/snackContext'
+import { useSnackContext } from '../utils/context/useSnackContext'
 
 export function Home() {
   const navigation = useNavigation<NavigationProp>()
+  const { snacks } = useSnackContext()
 
   function handleNavigateToNewSnack() {
     navigation.navigate('new_snack')
@@ -43,7 +42,20 @@ export function Home() {
             </Text>
           </TouchableOpacity>
 
-          <HistoricComponent />
+          {snacks.length <= 0 ? (
+            <View className="pt-14 flex-col flex items-center justify-center ">
+              <Clipboard color="#3a3a3a" size={64} />
+
+              <Text className="font-normal mt-6 mb-[-20px] text-base leading-6 text-zinc-400">
+                Você ainda não tem refeições cadastradas{' '}
+              </Text>
+              <Text className="font-normal mt-6 text-base leading-6 text-zinc-600">
+                Crie refeições e organize sua dieta
+              </Text>
+            </View>
+          ) : (
+            <HistoricComponent />
+          )}
         </View>
       </ScrollView>
     </View>

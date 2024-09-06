@@ -1,12 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { ArrowLeft, Pencil, Trash } from 'lucide-react-native'
 import React, { useEffect, useState } from 'react'
 import { Modal, Text, TouchableOpacity, View } from 'react-native'
 import Toast from 'react-native-toast-message'
-import { RootStackParamList } from '../../routes/app.routes'
-import { SnackProps } from '../../utils/context/snackContext'
+import { NavigationProp, SnackProps } from '../../utils/context/snackContext'
 import { useSnackContext } from '../../utils/context/useSnackContext'
 import { formatDate } from '../../utils/formmatDate'
 import { formatHour } from '../../utils/formmatHour'
@@ -14,7 +12,6 @@ import { formatHour } from '../../utils/formmatHour'
 interface RouteParams {
   id: string
 }
-type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function SnackDetails() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -35,17 +32,15 @@ export function SnackDetails() {
   const route = useRoute<RouteProp<{ params: RouteParams }, 'params'>>()
 
   const { id } = route.params
-  console.log(id)
 
   useEffect(() => {
     const foundSnack = snacks.find((snack) => snack.id === id)
     setSnackDetails(foundSnack)
-    console.log(snackDetails)
   }, [id, snackDetails])
 
   async function handleSnackRemove(id: string) {
     const snackIndex = snacks.findIndex((snack) => snack.id === id)
-    console.log(snackIndex)
+
     if (snackIndex !== -1) {
       const updatedSnacks = [...snacks]
       updatedSnacks.splice(snackIndex, 1)

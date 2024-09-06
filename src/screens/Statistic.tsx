@@ -1,26 +1,20 @@
 import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { ArrowLeft } from 'lucide-react-native'
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import { RootStackParamList } from '../routes/app.routes'
+import { NavigationProp } from '../utils/context/snackContext'
 import { useSnackContext } from '../utils/context/useSnackContext'
-
-type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function Statistic() {
   const {
     dietPercentage,
     snacks,
     dietCount,
-
     notDietCount,
     findBestDietSequence,
   } = useSnackContext()
 
   const navigation = useNavigation<NavigationProp>()
-
-  console.log(dietPercentage)
 
   const bestSequence = findBestDietSequence(snacks)
 

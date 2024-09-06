@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StackNavigationProp } from '@react-navigation/stack'
 import {
   Dispatch,
   ReactNode,
@@ -6,6 +7,7 @@ import {
   createContext,
   useState,
 } from 'react'
+import { RootStackParamList } from '../../routes/app.routes'
 
 export interface SnackProps {
   id: string
@@ -34,6 +36,8 @@ export const SnackContext = createContext<SnackContextType | undefined>(
 interface SnackProviderProps {
   children: ReactNode
 }
+
+export type NavigationProp = StackNavigationProp<RootStackParamList>
 
 export function SnackProvider({ children }: SnackProviderProps) {
   const [snacks, setSnacks] = useState<SnackProps[]>([])

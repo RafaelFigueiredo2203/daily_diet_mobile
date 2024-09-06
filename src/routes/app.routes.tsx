@@ -9,11 +9,11 @@ import { Statistic } from '../screens/Statistic'
 
 export type RootStackParamList = {
   home: undefined
-  edit_snack: undefined
+  edit_snack: { id: string }
   new_snack: undefined
   success: undefined
   failure: undefined
-  snack_details: undefined
+  snack_details: { id: string }
   statistic: undefined
 }
 
